@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 8f;
 
     [Header("Ground Check Settings")]
-    [Tooltip("How far below the collider to check for ground.")]
     public float groundCheckDistance = 0.1f;
     public LayerMask groundLayer;
 
@@ -27,7 +26,6 @@ public class PlayerController : MonoBehaviour
         col = GetComponent<Collider2D>();
         inputActions = new PlayerInputActions();
 
-        // Input bindings
         inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
         inputActions.Player.Jump.performed += ctx => jumpPressed = true;
@@ -50,10 +48,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Move horizontally
         rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
 
-        // Jump only if grounded
         if (jumpPressed && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -64,7 +60,6 @@ public class PlayerController : MonoBehaviour
 
     private bool CheckGrounded()
     {
-        // Cast a box below the player collider
         RaycastHit2D hit = Physics2D.BoxCast(
             col.bounds.center,
             col.bounds.size,

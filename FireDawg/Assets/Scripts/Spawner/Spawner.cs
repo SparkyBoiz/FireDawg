@@ -3,18 +3,17 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [Header("Prefabs to Spawn")]
-    public GameObject[] prefabs; // Possible prefabs to spawn
+    public GameObject[] prefabs;
 
     [Header("Spawn Points")]
-    public Transform[] spawnPoints; // Set spawn locations
+    public Transform[] spawnPoints;
 
     [Header("Spawn Settings")]
-    public float spawnInterval = 3f; // Time between spawns
-    public bool autoSpawn = true;    // Should it spawn automatically?
+    public float spawnInterval = 3f;
+    public bool autoSpawn = true;
 
     [Header("Scale Randomization")]
-    [Tooltip("Minimum and maximum X scale for spawned prefabs.")]
-    public Vector2 xScaleRange = new Vector2(0.8f, 1.2f); // Default range
+    public Vector2 xScaleRange = new Vector2(0.8f, 1.2f);
 
     private float timer;
 
@@ -35,9 +34,6 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Spawns a random prefab at a random spawn point and randomizes its X scale.
-    /// </summary>
     public void SpawnRandom()
     {
         if (prefabs.Length == 0 || spawnPoints.Length == 0)
@@ -46,14 +42,11 @@ public class Spawner : MonoBehaviour
             return;
         }
 
-        // Pick random prefab and spawn point
         GameObject prefabToSpawn = prefabs[Random.Range(0, prefabs.Length)];
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-        // Instantiate prefab
         GameObject instance = Instantiate(prefabToSpawn, spawnPoint.position, spawnPoint.rotation);
 
-        // Randomize X scale within range
         float randomXScale = Random.Range(xScaleRange.x, xScaleRange.y);
         Vector3 newScale = instance.transform.localScale;
         newScale.x = randomXScale;
