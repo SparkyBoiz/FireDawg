@@ -45,10 +45,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Horizontal movement
         rb.linearVelocity = new Vector2(moveInput.x * moveSpeed, rb.linearVelocity.y);
 
-        // Jump
         if (jumpPressed && isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -77,16 +75,14 @@ public class PlayerController : MonoBehaviour
         float horizontalSpeed = Mathf.Abs(moveInput.x);
         bool isJumping = !isGrounded;
 
-        // Update animator parameters
         animator.SetFloat("Speed", horizontalSpeed);
         animator.SetBool("IsJumping", isJumping);
         animator.SetBool("IsIdle", horizontalSpeed < 0.1f && !isJumping);
 
-        // Flip sprite correctly (facing right when moving right)
         if (moveInput.x < 0.1f)
-            spriteRenderer.flipX = false;  // Facing right
+            spriteRenderer.flipX = false;
         else if (moveInput.x > -0.1f)
-            spriteRenderer.flipX = true;   // Facing left
+            spriteRenderer.flipX = true;
     }
 
     private void OnDrawGizmosSelected()

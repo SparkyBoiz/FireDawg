@@ -12,7 +12,7 @@ public class Debris : MonoBehaviour
     public string playerTag = "Player";
 
     [Header("Sprite Settings")]
-    public Sprite groundSprite; // Sprite to switch to on ground contact
+    public Sprite groundSprite;
 
     private SpriteRenderer spriteRenderer;
     private bool hasChangedSprite = false;
@@ -24,7 +24,6 @@ public class Debris : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // --- If debris hits the ground ---
         if (((1 << collision.gameObject.layer) & groundLayer) != 0)
         {
             if (!hasChangedSprite && groundSprite != null)
@@ -33,12 +32,10 @@ public class Debris : MonoBehaviour
                 hasChangedSprite = true;
             }
 
-            // ✅ Remove this script after changing the sprite
             Destroy(this);
             return;
         }
 
-        // --- If debris hits the player ---
         if (collision.gameObject.CompareTag(playerTag))
         {
             SceneManager.LoadScene(sceneToLoad);

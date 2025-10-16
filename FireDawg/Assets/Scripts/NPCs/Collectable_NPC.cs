@@ -63,4 +63,3 @@ public class Collectible_NPC : MonoBehaviour
         }
     }
 }
-
